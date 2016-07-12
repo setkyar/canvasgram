@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvasgram</title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
+	<style>
+		#my_file {
+		    display: none;
+		}
+
+		#get_file {
+		    background: #f9f9f9;
+		    border: 5px solid #88c;
+		    padding: 15px;
+		    border-radius: 5px;
+		    margin: 10px;
+		    cursor: pointer;
+		}
+		.border {
+			border:1px solid;
+		}
+		div.desc{
+		    background-color: #000;
+		    bottom: 0;
+		    color: #fff;
+		    left: 0;
+		    opacity: 0.5;
+		    position: absolute;
+		    width: 100%;
+		}
+		.fix{width:100%; padding:0px;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h2>Canvasgram</h2>
+				<hr>
+				<input type="button" id="get_file" value="Upload Image">
+				<input type="file" id="my_file">
+			</div>
+
+			<div class="col-md-4 col-md-offset-4">
+				<img src="img.jpg" class="img-responsive" alt="Your image">
+			</div>
+		</div>
+
+		<div class="row">
+			<hr>
+			<div class="col-md-4">
+				<figure class="_1977">
+					<div class="fix">
+				    	<img src="img.jpg" class=" img-responsive" alt="Your image">
+				    	<div class="desc">
+				            <h5 class="desc_content">1977</h5>
+				        </div>
+				    </div>
+			    </figure>
+			</div>
+			<div class="col-md-4">
+				<figure class="aden">
+					<div class="fix">
+				    	<img src="img.jpg" class=" img-responsive" alt="Your image">
+				    	<div class="desc">
+				            <h5 class="desc_content">Aden</h5>
+				        </div>
+				    </div>
+			    </figure>
+			</div>
+			<div class="col-md-4">
+				<figure class="brooklyn">
+					<div class="fix">
+				    	<img src="img.jpg" class=" img-responsive" alt="Your image">
+				    	<div class="desc">
+				            <h5 class="desc_content">Brooklyn</h5>
+				        </div>
+				    </div>
+			    </figure>
+			</div>
+		</div>
+	</div>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script>
+		document.getElementById('get_file').onclick = function() {
+		    document.getElementById('my_file').click();
+		};
+	</script>
+</body>
+</html>
