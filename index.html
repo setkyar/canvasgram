@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Canvasgram</title>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//cssgram-cssgram.netdna-ssl.com/cssgram.min.css">
+	<!-- <link rel="stylesheet" href="//cssgram-cssgram.netdna-ssl.com/cssgram.min.css"> -->
 	<style>
 		#my_file {
 		    display: none;
@@ -18,19 +18,10 @@
 		    margin: 10px;
 		    cursor: pointer;
 		}
-		.border {
-			border:1px solid;
+
+		#virtual, .none {
+			display: none;
 		}
-		div.desc{
-		    background-color: #000;
-		    bottom: 0;
-		    color: #fff;
-		    left: 0;
-		    opacity: 0.5;
-		    position: absolute;
-		    width: 100%;
-		}
-		.fix{width:100%; padding:0px;}
 	</style>
 </head>
 <body>
@@ -44,7 +35,7 @@
 			</div>
 
 			<div class="col-md-4 col-md-offset-4">
-				<img src="img.jpg" class="img-responsive" alt="Your image">
+				<img src="img.jpg" class="canvasgram_img img-responsive" alt="Your image">
 			</div>
 		</div>
 
@@ -52,43 +43,111 @@
 			<hr>
 			<div class="col-md-4">
 				<figure class="_1977">
-					<div class="fix">
-				    	<img src="img.jpg" class=" img-responsive" alt="Your image">
-				    	<div class="desc">
-				            <h5 class="desc_content">1977</h5>
-				        </div>
-				    </div>
+				    <img src="img.jpg" class="canvasgram_img img-responsive" alt="Your image">
 			    </figure>
+			    <h3>
+			    	1997 - <button class="btn btn-default download" data-class="_1997">Download</button>
+			    </h3>
 			</div>
-			<div class="col-md-4">
-				<figure class="aden">
-					<div class="fix">
-				    	<img src="img.jpg" class=" img-responsive" alt="Your image">
-				    	<div class="desc">
-				            <h5 class="desc_content">Aden</h5>
-				        </div>
-				    </div>
-			    </figure>
-			</div>
-			<div class="col-md-4">
-				<figure class="brooklyn">
-					<div class="fix">
-				    	<img src="img.jpg" class=" img-responsive" alt="Your image">
-				    	<div class="desc">
-				            <h5 class="desc_content">Brooklyn</h5>
-				        </div>
-				    </div>
-			    </figure>
+		</div>
+
+		<div class="row none">
+			<div class="col-md-12">
+				<canvas id="download-canvas" width="890" height="592"></canvas>
 			</div>
 		</div>
 	</div>
+
+	<div id="virtual">
+			<style>
+				._1977:before,
+					._1977:after {
+					  content: '';
+					  display: block;
+					  height: 100%;
+					  width: 100%;
+					  top: 0;
+					  left: 0;
+					  position: absolute;
+					  pointer-events: none; }
+
+
+					._1977 {
+					  position: relative; }
+					  
+					  ._1977 img {
+					    width: 100%;
+					    z-index: 1; }
+					  
+					  ._1977:before {
+					    z-index: 2; }
+					  
+					  ._1977:after {
+					    z-index: 3; }
+
+
+					._1977 {
+					  -webkit-filter: contrast(1.1) brightness(1.1) saturate(1.3);
+					          filter: contrast(1.1) brightness(1.1) saturate(1.3); }
+					  
+					  ._1977:after {
+					    background: rgba(243, 106, 188, 0.3);
+					    mix-blend-mode: screen; }
+			</style>
+			<div style="width:890; height: 592">
+				<div class="_1977">
+				    <img src="img.jpg" class="canvasgram_img" alt="Your image">
+			    </div>
+		    </div>
+		</div>
 	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="//cburgmer.github.io/rasterizeHTML.js/rasterizeHTML.allinone.js"></script>
 	<script>
-		document.getElementById('get_file').onclick = function() {
-		    document.getElementById('my_file').click();
-		};
+		$(document).ready(function() {
+
+			$('#get_file').click(function() {
+				$('#my_file').click();
+			});
+
+			$('#my_file').change(function() {
+				base64($('input[type="file"]'), function(data){
+					$(".canvasgram_img").attr("src", "data:image/png;base64," + data.base64);
+				});
+			});
+
+			/*
+			//Download
+			var canvas = document.getElementById("download-canvas"),
+		    context = canvas.getContext('2d'),
+		    html_container = document.getElementById("virtual"),
+		    html = html_container.innerHTML;
+
+			rasterizeHTML.drawHTML(html).then(function (renderResult) {
+			    context.drawImage(renderResult.image, 0, 0, canvas.width, canvas.height);
+			});
+			window.open(document.querySelector('canvas').toDataURL());
+			*/
+
+			function base64(file, callback){
+				var coolFile = {};
+				function readerOnload(e){
+					var base64 = btoa(e.target.result);
+					coolFile.base64 = base64;
+					callback(coolFile)
+				};
+
+				var reader = new FileReader();
+				reader.onload = readerOnload;
+
+				var file = file[0].files[0];
+				coolFile.filetype = file.type;
+				coolFile.size = file.size;
+				coolFile.filename = file.name;
+				reader.readAsBinaryString(file);
+			}
+		});
 	</script>
 </body>
 </html>
