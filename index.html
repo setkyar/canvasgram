@@ -124,13 +124,12 @@
 			//Download
 			$('.download').click(function() {
 				var canvas = document.getElementById("download-canvas"),
-			    	context = canvas.getContext('2d'),
-			    	html_container = document.getElementById("virtual"),
-			    	html = html_container.innerHTML;
-
+			    context = canvas.getContext('2d'),
+			    html_container = document.getElementById("virtual"),
+			    html = html_container.innerHTML;
+	
 				rasterizeHTML.drawHTML(html).then(function (renderResult) {
-				    context.drawImage(image, 0, 0, canvas.width, canvas.height);
-
+				    context.drawImage(renderResult.image, 0, 0, canvas.width, canvas.height);
 				    window.open(document.querySelector('canvas').toDataURL());
 				});
 			});
