@@ -114,28 +114,33 @@
 			$('#my_file').change(function() {
 				base64($('input[type="file"]'), function(data){
 					$(".canvasgram_img").attr("src", "data:image/png;base64," + data.base64);
+					var image_width = document.querySelector('.canvasgram_img').naturalWidth;
+					var image_height = document.querySelector('.canvasgram_img').naturalHeight;
+					$('#download-canvas').attr('width', image_width);
+					$('#download-canvas').attr('height', image_height);
 				});
 			});
 
-			/*
 			//Download
-			var canvas = document.getElementById("download-canvas"),
-		    context = canvas.getContext('2d'),
-		    html_container = document.getElementById("virtual"),
-		    html = html_container.innerHTML;
+			$('.download').click(function() {
+				var canvas = document.getElementById("download-canvas"),
+			    	context = canvas.getContext('2d'),
+			    	html_container = document.getElementById("virtual"),
+			    	html = html_container.innerHTML;
 
-			rasterizeHTML.drawHTML(html).then(function (renderResult) {
-			    context.drawImage(renderResult.image, 0, 0, canvas.width, canvas.height);
+				rasterizeHTML.drawHTML(html).then(function (renderResult) {
+				    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+				    window.open(document.querySelector('canvas').toDataURL());
+				});
 			});
-			window.open(document.querySelector('canvas').toDataURL());
-			*/
 
 			function base64(file, callback){
 				var coolFile = {};
 				function readerOnload(e){
 					var base64 = btoa(e.target.result);
 					coolFile.base64 = base64;
-					callback(coolFile)
+					callback(coolFile);					
 				};
 
 				var reader = new FileReader();
